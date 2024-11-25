@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Locale;
 
 public class Main {
-    static String path = "src/main/java/ru/vsu/cs/boldyrev/";
+    //java -cp .\target\classes ru.vsu.cs.boldyrev.Main .\inp.txt .\out.txt
     public static class InputArgs {
         public String inputFile;
         public String outputFile;
@@ -52,16 +52,17 @@ public class Main {
         if (params.window) {
             winMain();
         } else {
-            int[][] arr2 = ArrayUtils.readIntArray2FromFile(path + params.inputFile);
+            double[][] arr2 = ArrayUtils.readDoubleArray2FromFile(params.inputFile);
             if (arr2 == null) {
                 System.err.printf("Can't read array from \"%s\"%n", params.inputFile);
                 System.exit(2);
             }
-            //int[] result = Logic.Solution(arr2);
-            int[] result = new int[]{0, 0, 0, 0};
-            System.out.println(Arrays.toString(result));
-            PrintStream out = (params.outputFile != null) ? new PrintStream(path + params.outputFile) : System.out;
-            out.println(ArrayUtils.toString(result));
+            int[][] result = InOutData.interfaceResult(arr2);
+            InOutData.printArr(result);
+            PrintStream out = (params.outputFile != null) ? new PrintStream(params.outputFile) : System.out;
+            for (int i = 0; i < result.length; i++) {
+                out.println(ArrayUtils.toString(result[i]));
+            }
             out.close();
         }
     }

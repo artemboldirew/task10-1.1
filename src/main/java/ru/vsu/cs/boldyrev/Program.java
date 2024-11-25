@@ -5,30 +5,34 @@ import java.util.List;
 
 public class Program {
     public static class Triangle {
-        public int[] t1;
-        public int[] t2;
-        public int[] t3;
+        public int index;
+        public double[] t1;
+        public double[] t2;
+        public double[] t3;
         public double maxCos;
         public double minCos;
 
-        public Triangle(int x1, int y1, int x2, int y2, int x3, int y3) {
-            this.t1 = new int[]{x1, y1};
-            this.t2 = new int[]{x2, y2};
-            this.t3 = new int[]{x3, y3};
+        public Triangle(double x1, double y1, double x2, double y2, double x3, double y3) {
+            this.t1 = new double[]{x1, y1};
+            this.t2 = new double[]{x2, y2};
+            this.t3 = new double[]{x3, y3};
         }
     }
 
-    private static boolean equelD(double a, double b) {
+    public static boolean equelD(double a, double b) {
         double epsilon = 0.000001;
         return Math.abs(a - b) < epsilon;
     }
-    public static List<List<Triangle>> Solution(int[][] arr) {
+
+    public static List<List<Triangle>> Solution(double[][] arr) {
         List<List<Triangle>> result = new ArrayList<>();
+        int cnt = 0;
         for (int i = 0; i < arr.length; i++) {
-            int[] cur = arr[i];
+            double[] cur = arr[i];
             Triangle curTriangle = new Triangle(cur[0], cur[1], cur[2], cur[3], cur[4], cur[5]);
             findDegrees(curTriangle);
-            System.out.printf("max: %f, min %f%n", curTriangle.maxCos, curTriangle.minCos);
+            curTriangle.index = cnt;
+            cnt++;
             boolean flag = true;
             for (int j = 0; j < result.size(); j++) {
                 double curMaxCos = result.get(j).getFirst().maxCos;
@@ -46,10 +50,12 @@ public class Program {
         }
         return result;
     }
+
     private static double getCos(double main, double b, double c) {
         return (Math.pow(b, 2) + Math.pow(c, 2) - Math.pow(main, 2)) / (2 * b * c);
     }
-    private static double getLength(int[] t1, int[] t2) {
+
+    private static double getLength(double[] t1, double[] t2) {
         return Math.sqrt(Math.pow(t2[0] - t1[0], 2) + Math.pow(t2[1] - t1[1], 2));
     }
 
@@ -62,11 +68,5 @@ public class Program {
         double cos3 = getCos(l3, l2, l1);
         fig.maxCos = Math.max(Math.max(cos1, cos2), cos3);
         fig.minCos = Math.min(Math.min(cos1, cos2), cos3);
-
-
-
-        System.out.printf("%f %f%n", fig.maxCos, fig.minCos);
-        //fig.maxDegree = Math.min(Math.min(cos1, cos2), cos3);
-        //fig.minDegree = Math.max(Math.max(cos1, cos2), cos3);
     }
 }

@@ -4,6 +4,7 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 //import ru.vsu.cs.boldyrev.MyPart.Logic;
+import ru.vsu.cs.boldyrev.InOutData;
 import ru.vsu.cs.boldyrev.Program;
 import ru.vsu.cs.boldyrev.util.ArrayUtils;
 import ru.vsu.cs.boldyrev.util.JTableUtils;
@@ -43,7 +44,7 @@ public class FrameMain extends JFrame {
         this.pack();
 
         JTableUtils.initJTableForArray(tableInput, 40, true, true, true, true);
-        JTableUtils.initJTableForArray(tableOutput, 40, true, true, true, true);
+        JTableUtils.initJTableForArray(tableOutput, 30, true, true, true, true);
         //tableOutput.setEnabled(false);
         tableInput.setRowHeight(25);
         tableOutput.setRowHeight(25);
@@ -80,7 +81,7 @@ public class FrameMain extends JFrame {
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
                     if (fileChooserOpen.showOpenDialog(panelMain) == JFileChooser.APPROVE_OPTION) {
-                        int[][] arr = ArrayUtils.readIntArray2FromFile(fileChooserOpen.getSelectedFile().getPath());
+                        double[][] arr = ArrayUtils.readDoubleArray2FromFile(fileChooserOpen.getSelectedFile().getPath());
                         JTableUtils.writeArrayToJTable(tableInput, arr);
 
                     }
@@ -128,11 +129,8 @@ public class FrameMain extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
-                    int[][] matrix = JTableUtils.readIntMatrixFromJTable(tableInput);
-                    List<List<Program.Triangle>> res = Program.Solution(matrix);
-                    //InOutData.printList(res);
-                    String[][] show = new String[][]{{"0 0 0 1 1 0","0 0 2 0 0 2"},{"5 6 7 12 23 1"}};
-                    //int[][] show = Logic.getInterfaceResult(matrix);
+                    double[][] matrix = JTableUtils.readDoubleMatrixFromJTable(tableInput);
+                    int[][] show = InOutData.interfaceResult(matrix);
                     JTableUtils.writeArrayToJTable(tableOutput, show);
                 } catch (Exception e) {
                     SwingUtils.showErrorMessageBox(e);
