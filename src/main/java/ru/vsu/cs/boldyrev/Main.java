@@ -5,7 +5,6 @@ import ru.vsu.cs.boldyrev.util.ArrayUtils;
 import ru.vsu.cs.boldyrev.util.SwingUtils;
 
 import java.io.PrintStream;
-import java.util.Arrays;
 import java.util.Locale;
 
 public class Main {
@@ -57,11 +56,11 @@ public class Main {
                 System.err.printf("Can't read array from \"%s\"%n", params.inputFile);
                 System.exit(2);
             }
-            int[][] result = InOutData.interfaceResult(arr2);
+            String[][] result = InOutData.interfaceResult(arr2);
             InOutData.printArr(result);
             PrintStream out = (params.outputFile != null) ? new PrintStream(params.outputFile) : System.out;
             for (int i = 0; i < result.length; i++) {
-                out.println(ArrayUtils.toString(result[i]));
+                out.println(result[i]);
             }
             out.close();
         }

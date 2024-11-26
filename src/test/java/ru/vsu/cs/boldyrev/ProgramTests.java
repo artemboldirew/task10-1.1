@@ -11,6 +11,7 @@ public class ProgramTests {
         double[][] input01 = ArrayUtils.readDoubleArray2FromFile(path + "inputs/input01.txt");
         int[][] output01 = ArrayUtils.readIntArray2FromFile(path + "outputs/output01.txt");
         int[][] res01 = InOutData.interfaceResult(input01);
+        System.out.println(System.getProperty("user.dir"));
         Assertions.assertArrayEquals(output01, res01);
     }
 

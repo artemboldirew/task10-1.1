@@ -44,7 +44,7 @@ public class FrameMain extends JFrame {
         this.pack();
 
         JTableUtils.initJTableForArray(tableInput, 40, true, true, true, true);
-        JTableUtils.initJTableForArray(tableOutput, 30, true, true, true, true);
+        JTableUtils.initJTableForArray(tableOutput, 220, true, true, true, true);
         //tableOutput.setEnabled(false);
         tableInput.setRowHeight(25);
         tableOutput.setRowHeight(25);
@@ -70,7 +70,7 @@ public class FrameMain extends JFrame {
         SwingUtils.initLookAndFeelMenu(menuLookAndFeel);
 
         JTableUtils.writeArrayToJTable(tableInput, new int[][]{
-                {0, 0, 0, 1, 1, 0}
+                {0, 0, 0, 0, 0, 0}
         });
 
         this.pack();
@@ -130,7 +130,7 @@ public class FrameMain extends JFrame {
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
                     double[][] matrix = JTableUtils.readDoubleMatrixFromJTable(tableInput);
-                    int[][] show = InOutData.interfaceResult(matrix);
+                    String[][] show = InOutData.interfaceResult(matrix);
                     JTableUtils.writeArrayToJTable(tableOutput, show);
                 } catch (Exception e) {
                     SwingUtils.showErrorMessageBox(e);
