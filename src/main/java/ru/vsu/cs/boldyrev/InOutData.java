@@ -1,33 +1,14 @@
 package ru.vsu.cs.boldyrev;
 
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import com.sun.pisces.Transform6;
-import ru.vsu.cs.boldyrev.Program.Triangle;
+import ru.vsu.cs.boldyrev.Triangle;
 
 public class InOutData {
-    public static int[][] getPrintArray(List<List<Triangle>> list) {
-        int maxSize = 0;
-        for (int j = 0; j < list.size(); j++) {
-            maxSize = Math.max(list.get(j).size(), maxSize);
-        }
-        int cntOut = 0;
-        int[][] res = new int[list.size()][maxSize];
-        for (int i = 0; i < list.size(); i++) {
-            List<Triangle> curList = list.get(i);
-            int[] curArr = new int[curList.size()];
-            int cnt = 0;
-            for (int k = 0; k < curList.size(); k++) {
-                int curIndex = curList.get(k).index;
-                curArr[cnt] = curIndex;
-                cnt++;
-            }
-            res[cntOut] = curArr;
-            cntOut++;
-        }
-        return res;
-    }
 
     public static void printArr(String[][] arr) {
         for (int i = 0; i < arr.length; i++) {
@@ -53,11 +34,11 @@ public class InOutData {
     }
 
     public static String[][] interfaceResult(double[][] arr) {
+        Locale.setDefault(Locale.ROOT);
         if (InOutData.inspectArr(arr)) {
             List<List<Triangle>> res = Program.Solution(arr);
             return getStringResult(res);
-        }
-        else {
+        } else {
             return new String[][]{{"-1"}};
         }
     }
@@ -84,8 +65,12 @@ public class InOutData {
         return res;
     }
 
+    public static String getNormalDouble(double number) {
+        DecimalFormat df = new DecimalFormat("#.####");
+        return df.format(number);
+    }
     public static String getStringTriangle(Triangle fig) {
-        return Double.toString(fig.t1[0]) + "  " + Double.toString(fig.t1[1]) + "  " + Double.toString(fig.t2[0]) + "  " + Double.toString(fig.t2[1]) + "  " + Double.toString(fig.t3[0]) + "  " + Double.toString(fig.t3[1]);
+        return getNormalDouble(fig.t1.x) + " " + getNormalDouble(fig.t1.y) + " | " + getNormalDouble(fig.t2.x) + " " + getNormalDouble(fig.t2.y) + " | " + getNormalDouble(fig.t3.x) + " " + getNormalDouble(fig.t3.y);
     }
 
 }

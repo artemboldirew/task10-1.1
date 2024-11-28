@@ -13,6 +13,7 @@ import ru.vsu.cs.boldyrev.util.SwingUtils;
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -44,7 +45,9 @@ public class FrameMain extends JFrame {
         this.pack();
 
         JTableUtils.initJTableForArray(tableInput, 40, true, true, true, true);
-        JTableUtils.initJTableForArray(tableOutput, 220, true, true, true, true);
+        JTableUtils.initJTableForArray(tableOutput, 40, true, true, true, true);
+        tableOutput.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+
         //tableOutput.setEnabled(false);
         tableInput.setRowHeight(25);
         tableOutput.setRowHeight(25);
@@ -132,6 +135,13 @@ public class FrameMain extends JFrame {
                     double[][] matrix = JTableUtils.readDoubleMatrixFromJTable(tableInput);
                     String[][] show = InOutData.interfaceResult(matrix);
                     JTableUtils.writeArrayToJTable(tableOutput, show);
+                    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+                    centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+
+                    // Применяем рендерер ко всем колонкам
+                    for (int i = 0; i < tableOutput.getColumnCount(); i++) {
+                        tableOutput.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+                    }
                 } catch (Exception e) {
                     SwingUtils.showErrorMessageBox(e);
                 }

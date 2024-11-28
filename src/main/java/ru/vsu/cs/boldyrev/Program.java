@@ -4,20 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Program {
-    public static class Triangle {
-        public int index;
-        public double[] t1;
-        public double[] t2;
-        public double[] t3;
-        public double maxCos;
-        public double minCos;
-
-        public Triangle(double x1, double y1, double x2, double y2, double x3, double y3) {
-            this.t1 = new double[]{x1, y1};
-            this.t2 = new double[]{x2, y2};
-            this.t3 = new double[]{x3, y3};
-        }
-    }
 
     public static boolean equelD(double a, double b) {
         double epsilon = 0.000001;
@@ -31,7 +17,6 @@ public class Program {
             double[] cur = arr[i];
             Triangle curTriangle = new Triangle(cur[0], cur[1], cur[2], cur[3], cur[4], cur[5]);
             findDegrees(curTriangle);
-            curTriangle.index = cnt;
             cnt++;
             boolean flag = true;
             for (int j = 0; j < result.size(); j++) {
@@ -55,8 +40,8 @@ public class Program {
         return (Math.pow(b, 2) + Math.pow(c, 2) - Math.pow(main, 2)) / (2 * b * c);
     }
 
-    private static double getLength(double[] t1, double[] t2) {
-        return Math.sqrt(Math.pow(t2[0] - t1[0], 2) + Math.pow(t2[1] - t1[1], 2));
+    private static double getLength(Point t1, Point t2) {
+        return Math.sqrt(Math.pow(t2.x - t1.x, 2) + Math.pow(t2.y - t1.y, 2));
     }
 
     public static void findDegrees(Triangle fig) {

@@ -5,9 +5,11 @@ import ru.vsu.cs.boldyrev.util.ArrayUtils;
 import ru.vsu.cs.boldyrev.util.SwingUtils;
 
 import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.Locale;
 
 public class Main {
+
     //java -cp .\target\classes ru.vsu.cs.boldyrev.Main .\inp.txt .\out.txt
     public static class InputArgs {
         public String inputFile;
@@ -18,7 +20,6 @@ public class Main {
 
     public static InputArgs parseCmdArgs(String[] args) {
         InputArgs params = new InputArgs();
-
         if (args.length == 1 && args[0].equals("--window")) {
             params.window = true;
         }
@@ -33,12 +34,8 @@ public class Main {
     }
 
     public static void winMain() throws Exception {
-        //SwingUtils.setLookAndFeelByName("Windows");
         Locale.setDefault(Locale.ROOT);
-        //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         SwingUtils.setDefaultFont("Microsoft Sans Serif", 18);
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FrameMain().setVisible(true);
@@ -47,6 +44,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
+        Locale.setDefault(Locale.ROOT);
         InputArgs params = parseCmdArgs(args);
         if (params.window) {
             winMain();
@@ -60,7 +58,7 @@ public class Main {
             InOutData.printArr(result);
             PrintStream out = (params.outputFile != null) ? new PrintStream(params.outputFile) : System.out;
             for (int i = 0; i < result.length; i++) {
-                out.println(result[i]);
+                out.println(Arrays.toString(result[i]));
             }
             out.close();
         }
