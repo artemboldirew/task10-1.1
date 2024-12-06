@@ -18,6 +18,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -116,12 +118,18 @@ public class FrameMain extends JFrame {
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
                     if (fileChooserSave.showSaveDialog(panelMain) == JFileChooser.APPROVE_OPTION) {
-                        int[][] matrix = JTableUtils.readIntMatrixFromJTable(tableOutput);
+                        double[][] matrix = JTableUtils.readDoubleMatrixFromJTable(tableOutput);
+                        String[][] show = InOutData.interfaceResult(matrix);
                         String file = fileChooserSave.getSelectedFile().getPath();
                         if (!file.toLowerCase().endsWith(".txt")) {
                             file += ".txt";
                         }
-                        ArrayUtils.writeArrayToFile(file, matrix);
+                        PrintStream out = (file != null) ? new PrintStream(file) : System.out;
+                        for (int i = 0; i < show.length; i++) {
+                            out.println(Arrays.toString(show[i]));
+                        }
+                        out.close();
+                        //ArrayUtils.writeArrayToFile(file, show);
                     }
                 } catch (Exception e) {
                     SwingUtils.showErrorMessageBox(e);

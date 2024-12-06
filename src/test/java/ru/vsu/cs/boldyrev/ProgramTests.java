@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.vsu.cs.boldyrev.util.ArrayUtils;
 
-import java.util.Locale;
 
 public class ProgramTests {
     private static final String path = "src/test/java/ru/vsu/cs/boldyrev/";
